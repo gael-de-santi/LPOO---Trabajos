@@ -1,0 +1,46 @@
+void setup(){
+size(800,600);
+
+
+}; 
+
+void draw(){
+background(255, 255, 255);
+float w = width, h = height;
+float rw = 200, rh = 200;
+
+//cuadrado
+rect(w/2 - rw/2, h/2 - rh/2, rw, rh);
+
+//puntos definidos del cuadrado
+float resq1w = w/2 - rw/2, 
+resq1h = h/2 - rh/2,
+
+resq2w = resq1w + rw,
+resq2h = resq1h,
+
+resq3w = resq1w,
+resq3h = resq1h + rh,
+
+resq4w = resq1w + rw,
+resq4h = resq1h + rh;
+
+//lineas
+line(0, 0, resq1w, resq1h);
+line(0, h, resq3w, resq3h);
+line(w, 0, resq2w, resq2h);
+line(w, h, resq4w, resq4h);
+
+line(w, 0, w/2, h);
+line(0, 0, w/2, h);
+
+line(0, h, w/2, 0);
+line(w, h, w/2, 0);
+
+stroke(0, 0, 210);
+strokeWeight(20);
+
+//triangulo
+triangle(resq1w, resq1h, resq2w, resq2h, resq3w + rw/2, resq3h);
+
+};
