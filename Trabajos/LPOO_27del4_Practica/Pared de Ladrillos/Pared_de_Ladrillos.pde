@@ -1,0 +1,25 @@
+float cantx=10;
+float canty= cantx * 1.5;
+void setup() {
+size(500,500);
+}
+
+void draw() {
+
+
+int i=0,j=0;
+
+for(i=0;i<=canty;i++){
+ for(j=0;j<=cantx;j++){
+   if(i%2==0){
+     rect(j*width/cantx-width/cantx/2,i*height/canty,width/cantx,height/canty);
+   }
+   else{
+      rect(j*width/cantx,i*height/canty,width/cantx,height/canty);
+   }
+  
+ }
+  
+}
+ 
+}
