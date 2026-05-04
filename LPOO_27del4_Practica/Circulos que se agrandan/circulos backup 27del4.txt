@@ -1,0 +1,20 @@
+//tablero de circulos
+
+void setup() {
+size(500,500);
+}
+
+void draw() {
+
+float tam =0;
+int i=0,j=0;
+int cantx=12;
+for(i=1;i<=cantx;i++){
+  line(0,height/2,width,height/2);//linea de centro
+  tam=width/cantx;
+ circle(i*i*tam/2,height/2,i*tam);
+ point(tam/2,height/2);
+  
+}
+ 
+}
