@@ -1,0 +1,44 @@
+int[][] grilla;
+int cantX=7, cantY=7;
+
+void setup(){
+  size(500,500);
+  grilla= new int[cantX][cantY];
+  
+  for(int x=0;x<cantX;x++){
+   for(int y=0;y<cantY;y++){
+      grilla[x][y]=0;     
+   }
+  }
+  
+}
+
+
+void draw(){
+float tamX=width/cantX;
+float tamY=height/cantY;
+ for(int x=0;x<cantX;x++){
+   for(int y=0;y<cantY;y++){
+     float distancia=dist(mouseX,mouseY,tamX*x+tamX/2,tamY*y+tamY/2);
+     transformarDistancia(distancia); 
+     fill(grilla[x][y]);
+     rect(tamX*x,tamY*y,tamX,tamY);
+
+     
+    
+   }
+  }
+
+}
+
+void transformarDistancia(float distancia){
+  
+  for(int x=0;x<cantX;x++){
+   for(int y=0;y<cantY;y++){
+      grilla[x][y]= int(map(distancia,0,width,0,255));    
+      println(grilla[x][y]);
+   }
+  }
+  
+  
+}
