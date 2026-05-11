@@ -1,0 +1,72 @@
+boolean[][][] grilla;
+int xG=10, yG=xG;
+
+void setup(){
+size(800,600);
+grilla = new boolean[xG][yG][6];
+
+for(int x=0;x<xG;x++){
+    for(int y=0;y<yG;y++){
+        for(int z=0;z<6;z++){
+           grilla[x][y][z]= random(1) > 0.7;
+           // antes: parseBoolean(int(random(-2)));
+println(grilla[x][y][z]);
+          }
+      }
+    
+  }
+}
+
+void draw(){
+  background(255);
+  int tamX=width/xG;
+  int tamY=height/yG;
+ noFill();
+ for(int x=0;x<xG;x++){//grilla
+    for(int y=0;y<yG;y++){
+        stroke(245);
+          rect(tamX*x,tamY*y,tamX,tamY);
+           stroke(5);}
+           
+ }
+ 
+ 
+ 
+  for(int x=0;x<xG;x++){//lineas
+    for(int y=0;y<yG;y++){
+         for(int z=0;z<6;z++){
+           //println(random(8));
+         
+                     
+              if(grilla[x][y][0]==true){ //linea de izquierda
+                 stroke(5);
+                 line(tamX*x,tamY*y,tamX*x,tamY*y+tamY );  
+                 }
+               if(grilla[x][y][1]==true){ //linea de arriba
+                 stroke(5);
+                 line(tamX*x,tamY*y,tamX*x+tamX,tamY*y );  
+                 }
+                  if(grilla[x][y][2]==true){ //linea de derecha
+                 stroke(5);
+                 line(tamX*x+tamX,tamY*y,tamX*x+tamX,tamY*y+tamY );      }
+                  if(grilla[x][y][3]==true){ //linea de  abajo
+                 stroke(5);
+                 line(tamX*x,tamY*y+tamY,tamX*x+tamX,tamY*y+tamY );      }
+                 if(grilla[x][y][4]==true){ //linea de  abajo
+                 stroke(5);
+                 line(tamX*x,tamY*y,tamX*x+tamX,tamY*y+tamY );      }
+                  if(grilla[x][y][5]==true){ //linea de  abajo
+                 stroke(5);
+                 line(tamX*x,tamY*y+tamY,tamX*x+tamX,tamY*y );      }
+             
+
+          }
+      }
+    
+  }
+  
+
+  
+  
+  
+}
