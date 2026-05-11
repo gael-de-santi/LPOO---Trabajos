@@ -1,0 +1,40 @@
+int[][]memoria;
+int count=0;
+void setup() {
+   size(500, 600);
+ memoria = new int[2][10];
+ for(int x=0;x<2;x++){
+  for(int y=0;y<10;y++){ 
+   memoria[x][y]=0;
+  }
+ }
+}
+ 
+void draw() {
+
+//  println(count);
+  background(100);
+
+ for(int x=0;x<2;x++){//circulos
+  for(int y=0;y<10;y++){ 
+    if(memoria[0][y]!=0 && memoria[1][y]!=0){
+   circle(memoria[0][y],memoria[1][y],width/10);
+    }
+  }
+ }
+
+
+
+}
+
+void mousePressed(){
+  memoria[0][count]=mouseX;
+  memoria[1][count]=mouseY;
+  if(count>=9){
+    count=0;
+  }
+  else{
+    count++;
+  }
+  
+}
