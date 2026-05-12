@@ -1,0 +1,36 @@
+PVector pos, vel;
+
+void setup(){
+size(800, 600);
+int w = width, h = height; 
+
+pos = new PVector(w/2, h/2);
+vel = new PVector(8, 8); //vector que calcula y devuelve posicion inicial y velocidad
+}
+
+void draw(){
+background(255, 0, 0);
+
+int w = width;
+
+int valCirculo = w/20; //valor del ellipse
+
+
+
+println(pos.x, pos.y);
+pos.add(vel);
+
+fill(0);
+ellipse(pos.x, pos.y, valCirculo, valCirculo); //circulo
+
+if(pos.x >= width - valCirculo/2 || pos.x <= 0 + valCirculo/2){
+vel.x = vel.x * - 1;
+}//si pasa los bordes en x cambia de sentido
+
+
+if(pos.y >= height - valCirculo/2 || pos.y <= 0 + valCirculo/2){
+vel.y = vel.y * - 1;
+}//si pasa los bordes en y cambia de sentido
+
+}
+
