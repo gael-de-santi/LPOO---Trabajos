@@ -1,0 +1,52 @@
+Movil m; //llamo a la clase (de mas abajo)
+Movil otro;
+
+void setup(){
+size(800, 600);
+
+
+m = new Movil(width/2, height/2);
+otro = new Movil(width/8, width/8);
+
+}
+
+void draw(){
+background(0);
+
+fill(random(255), random(255), random(255)); //color aleatorio de la pelota
+m.mover();
+m.mostrar();
+m.rebotar(); //llamo los void de m
+
+otro.mover();
+otro.mostrar();
+otro.rebotar(); //llamo los void de otro
+}
+
+class Movil{
+  PVector pos;
+  PVector vel = new PVector(1, 2);
+  int r = width/20;
+  
+  Movil(float x, float y){
+    pos = new PVector(x, y);
+  }
+  
+  void mover(){
+  pos.add(vel);
+  }
+  
+  void mostrar(){
+  ellipse(pos.x, pos.y, r, r);
+  }
+  
+  void rebotar(){
+    if(pos.x >= width - r/2 || pos.x <= 0 + r/2){
+    vel.x = vel.x * - 1;
+    }
+    if(pos.y >= height - r/2 || pos.y <= 0 + r/2){
+    vel.y = vel.y * - 1;
+    }
+  }
+  
+}
