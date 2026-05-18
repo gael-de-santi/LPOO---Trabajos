@@ -1,0 +1,23 @@
+float x, y, velx, vely, angulo, distancia;
+
+void setup(){
+size(800, 600);
+background(0);
+
+angulo = 0;
+distancia = 25;
+}
+
+void draw(){
+distancia = distancia + 0.1;
+translate(width/2, height/2);
+
+int tam = height/10;
+angulo = angulo + PI/30;
+
+x = cos(angulo) * distancia;
+y = sin(angulo) * distancia;
+
+fill(frameCount%255);
+ellipse(x, y, tam, tam);
+}
