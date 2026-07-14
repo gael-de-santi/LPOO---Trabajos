@@ -1,0 +1,58 @@
+Movil[] m;
+int i, cant = 100;
+
+void setup() {
+  size(900, 600);
+  
+  m = new Movil[cant];
+  for(i=0; i<cant; i++){
+  m[i] = new Movil(random(0, width), random(0, height), random(-10, 10), random(-10, 10));
+  }
+}
+void draw() {
+  background(255, 0, 0);
+  
+  for(i=0; i<cant; i++){
+  fill(255);
+  m[i].mostrar();
+  m[i].mover();
+  m[i].rebotar();
+  m[i].linea();
+}
+}
+
+class Movil {
+  PVector pos;
+  PVector vel;
+  int tamCirculo = 0;
+  int r = tamCirculo/2;
+  
+  Movil(float posX, float posY, float velX, float velY) {
+    pos = new PVector(posX, posY);
+    vel = new PVector(velX, velY);
+  }
+  
+  void mostrar() {
+    ellipse(pos.x, pos.y, tamCirculo, tamCirculo);
+  }
+  
+  void mover(){
+    pos.add(vel);
+  }
+  
+  void rebotar() {
+    if (pos.x >= width - r/2 || pos.x <= 0 + r/2) {
+      vel.x = vel.x * - 1;
+    }
+    if (pos.y >= height - r/2 || pos.y <= 0 + r/2) {
+      vel.y = vel.y * - 1;
+    }
+  }
+  void linea(){
+    if(dist(width/2, height/2, m[i].pos.x, m[i].pos.y) < width/3){
+    line(width/2, height/2, m[i].pos.x, m[i].pos.y);
+  }
+  }
+
+
+}
