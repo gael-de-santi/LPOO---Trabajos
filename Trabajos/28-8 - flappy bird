@@ -1,0 +1,116 @@
+
+class Cuadrado {
+  PVector pos;
+  PVector vel;
+  float alto;
+  float ancho = width/20;
+
+  Cuadrado(float posY, float altoY) {
+    pos= new PVector(width, posY);
+    vel= new PVector(-4, 0);
+    alto=altoY;
+  }
+  void mover() {
+    pos.add(vel);
+  }
+
+  void mostrar() {
+    fill(255,0,0);
+    rect(pos.x, pos.y, ancho,alto);
+  }
+
+
+}
+
+class Pelota {
+
+  PVector pos;
+  PVector vel;
+  int r = 40;
+
+
+  Pelota() {
+    pos=new PVector(60, height/2);
+    vel = new PVector (0, 0);
+  }
+
+  void mover() {
+    pos.add(vel);
+  }
+
+  void mostrar() {
+    fill(0,200,100);
+    ellipse(pos.x, pos.y, r, r);
+    textSize(20);
+    fill(0);
+    text(":V",pos.x-r/4,pos.y+r/5);
+  }
+  void addfuerza(PVector fuerzaGravedad){
+   vel.add(fuerzaGravedad); 
+  }
+  void resetFuerza(){
+   
+   vel.y=-7;
+  }
+}
+
+  
+  
+  ArrayList<Cuadrado> tubos;
+  Pelota bird;
+  float ultimoPar=0;
+PVector G= new PVector(0,0.3);
+//float fuerzaG=2;
+void setup() {
+  size(800, 600);
+  tubos = new ArrayList<Cuadrado>();
+  bird = new Pelota();
+}
+
+void draw() {
+  background(0);
+  agregartubos();
+ bird.addfuerza(G);
+ 
+  bird.mover();
+  borrartubos();
+
+  for (Cuadrado t : tubos) {
+    
+    t.mover();
+    t.mostrar();
+     println(t.pos.x,t.pos.y);
+    
+  }
+ 
+  bird.mostrar();
+}
+
+void mousePressed(){
+ bird.resetFuerza(); 
+  
+}
+
+void borrartubos() {
+
+  for (int i = tubos.size()-1; i>=0; i--) {
+    Cuadrado Aux = tubos.get(i);
+    if (Aux.pos.x+Aux.ancho < 0) {
+      tubos.remove(i);
+    }
+  }
+}
+
+
+
+void agregartubos() {
+  float distTubos=height/3;//el espacio que le dejan al pajaro para pasar
+  float alturaEspacio=random(height/10,height-distTubos*1.5);  //la altura en la que esta ese espacio, mientras mas es el valor mas bajo esta
+  if (millis() - ultimoPar > 1300) {
+    
+    tubos.add(new Cuadrado(0,alturaEspacio));
+    tubos.add(new Cuadrado(alturaEspacio+distTubos,height));
+    ultimoPar=millis();
+  }
+}
+
