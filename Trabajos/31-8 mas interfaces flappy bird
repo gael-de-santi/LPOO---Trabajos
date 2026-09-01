@@ -1,0 +1,153 @@
+//se crearon interfaces de inicio y de game over pero todavia sin colision con las columnas
+
+int estadodeljuego = 0;
+
+class Cuadrado {
+  PVector pos;
+  PVector vel;
+  float alto;
+  float ancho = width/20;
+
+  Cuadrado(float posY, float altoY) {
+    pos= new PVector(width, posY);
+    vel= new PVector(-4, 0);
+    alto=altoY;
+  }
+  void mover() {
+    pos.add(vel);
+  }
+
+  void mostrar() {
+    fill(255,0,0);
+    rect(pos.x, pos.y, ancho,alto);
+  }
+
+
+}
+
+class Pelota {
+
+  PVector pos;
+  PVector vel;
+  int r = 40;
+
+
+  Pelota() {
+    pos=new PVector(60, height/2);
+    vel = new PVector (0, 0);
+  }
+
+  void mover() {
+    pos.add(vel);
+  }
+
+  void mostrar() {
+    fill(0,200,100);
+    ellipse(pos.x, pos.y, r, r);
+    textSize(20);
+    fill(0);
+    text(":V",pos.x-r/4,pos.y+r/5);
+  }
+  void addfuerza(PVector fuerzaGravedad){
+   vel.add(fuerzaGravedad); 
+  }
+  void resetFuerza(){
+   
+   vel.y=-7;
+  }
+}
+
+  
+  
+  ArrayList<Cuadrado> tubos;
+  Pelota bird;
+  float ultimoPar=0;
+PVector G= new PVector(0,0.3);
+//float fuerzaG=2;
+void setup() {
+  size(800, 600);
+  tubos = new ArrayList<Cuadrado>();
+  bird = new Pelota();
+}
+
+void draw() {
+background(40, 255, 0);
+fill(0);
+textAlign(CENTER);
+textSize(80);
+text("Flappy Bird", width/2, height/4);
+textSize(30);
+text("Jugar", width/2, height/2);
+
+if(mousePressed && dist(mouseX, mouseY, width/2, height/2) <= 20){
+estadodeljuego = 1;
+}
+
+if(estadodeljuego==2){
+background(255, 0, 0);
+textAlign(CENTER);
+textSize(120);
+text("GAME OVER", width/2, height/2);
+
+textAlign(CENTER);
+textSize(40);
+text("Volver a Jugar", width/2, height/2+height/6);
+
+if(mousePressed && dist(mouseX, mouseY, width/2, height/2+height/6) <= 20){
+estadodeljuego = 1;
+setup();
+}
+}
+
+if (estadodeljuego == 1){
+  background(0);
+  agregartubos();
+ bird.addfuerza(G);
+ 
+  bird.mover();
+  borrartubos();
+
+  for (Cuadrado t : tubos) {
+    
+    t.mover();
+    t.mostrar();
+    
+  }
+ 
+  bird.mostrar();
+}
+
+if(bird.pos.y > height || bird.pos.y < 0){
+estadodeljuego = 2;
+setup();
+}
+
+}//cierre if estado del juego 1
+
+void mousePressed(){
+ bird.resetFuerza(); 
+  
+}
+
+void borrartubos() {
+
+  for (int i = tubos.size()-1; i>=0; i--) {
+    Cuadrado Aux = tubos.get(i);
+    if (Aux.pos.x+Aux.ancho < 0) {
+      tubos.remove(i);
+    }
+  }
+}
+
+
+
+void agregartubos() {
+  float distTubos=height/3;//el espacio que le dejan al pajaro para pasar
+  float alturaEspacio=random(height/10,height-distTubos*1.5);  //la altura en la que esta ese espacio, mientras mas es el valor mas bajo esta
+  if (millis() - ultimoPar > 1300) {
+    
+    tubos.add(new Cuadrado(0,alturaEspacio));
+    tubos.add(new Cuadrado(alturaEspacio+distTubos,height));
+    ultimoPar=millis();
+  }
+}
